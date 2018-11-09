@@ -11,10 +11,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class Dobby_Menu extends JPanel{
-   //음식이름, 음식가격, 음식수량에 대한 라벨
-   JLabel mealNameL, mealPriceL, mealAmountL;
+   //음식이름, 음식가격, 음식수량, 총 가격에 대한 라벨
+   JLabel mealNameL, mealPriceL, mealAmountL, fullPriceL;
    //음식이름, 음식가격에 대한 텍스트필드
-   JTextField mealNameTF, mealPriceTF, mealAmountTF;
+   JTextField mealNameTF, mealPriceTF, mealAmountTF, fullPriceTF;
    //주문 정보를 등록, 제거, 결정 버튼
    JButton registerB, removeB, decideB;
    //음식, 음료 버튼
@@ -34,6 +34,7 @@ public class Dobby_Menu extends JPanel{
       mealNameL = new JLabel("음식명");
       mealPriceL = new JLabel("음식가격");
       mealAmountL = new JLabel("음식수량");
+      fullPriceL = new JLabel("총 금액");
 
       //라벨 위치 조정
       mealNameL.setHorizontalAlignment(JLabel.CENTER);
@@ -41,14 +42,18 @@ public class Dobby_Menu extends JPanel{
       mealPriceL.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
       mealAmountL.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
       
+      fullPriceL.setHorizontalAlignment(JLabel.CENTER);
+      
       //JTextField 부분
       mealNameTF = new JTextField(12);
       mealPriceTF = new JTextField(10);
       mealAmountTF = new JTextField(10);
+      fullPriceTF = new JTextField(10);
       
       mealNameTF.setEditable(false); // 음식을 고르면 값, 이름을 출력하기 위해 수정 불가 설정
       mealPriceTF.setEditable(false);
       mealAmountTF.setEditable(false);
+      fullPriceTF.setEditable(false);
       
       //버튼에 등록할 이미지 크기 조절 (내부 클래스 이용)
       class Resizing {
@@ -106,13 +111,13 @@ public class Dobby_Menu extends JPanel{
       //특정 셀이 선택되었을 때, 동일한 열에 있는 나머지 셀들이 전부 선택되는 기본 동작 불가 설정
       
       //배치하기
+      //이름, 가격, 수량 라벨 패널
       JPanel mlabelPanel = new JPanel(new GridLayout(1, 3));
-      //가로 1줄, 세로 3줄
       mlabelPanel.add(mealNameL);
       mlabelPanel.add(mealPriceL);
       mlabelPanel.add(mealAmountL);
       
-      //플러스, 마이너스 패널
+      //수량 조절을 위한 플러스, 마이너스 버튼 패널
       JPanel pmPanel = new JPanel(new GridLayout(2, 1));
       pmPanel.add(plusB);
       pmPanel.add(minusB);
@@ -124,13 +129,13 @@ public class Dobby_Menu extends JPanel{
       minfoPanel.add(mealAmountTF);
       minfoPanel.add(pmPanel);
       
-      //위 패널들을 묶은 패널
-      JPanel mlabel_info_Panel = new JPanel(new GridLayout(4, 1));
-      mlabel_info_Panel.add(mlabelPanel);
-      mlabel_info_Panel.add(minfoPanel);
+      //총 가격에 대한 패널
+      JPanel mfullPricePanel= new JPanel(new FlowLayout());
+      mfullPricePanel.add(fullPriceL);
+      mfullPricePanel.add(fullPriceTF);
+      mfullPricePanel.setBorder(new TitledBorder("총 가격"));
       
-      
-      //음식, 음료 고르기 버튼
+      //음식 고르기 버튼
       JPanel meal_drink_buttonPanel = new JPanel(new FlowLayout());
       meal_drink_buttonPanel.add(chikenB);
       meal_drink_buttonPanel.add(soyChikenB);
@@ -139,124 +144,28 @@ public class Dobby_Menu extends JPanel{
       meal_drink_buttonPanel.add(ciderB);
       meal_drink_buttonPanel.setBorder(new TitledBorder("음료 & 음식"));
       
+      //주문 등록, 주문 제거, 주문 결정 버튼 패널
       JPanel buybutton_Panel = new JPanel(new FlowLayout());
       buybutton_Panel.add(registerB);
       buybutton_Panel.add(removeB);
       buybutton_Panel.add(decideB);
       
-      //주문 등록, 주문 제거, 주문 결정 패널 위치 변경
+      //음식 정보, 라벨의 패널들을 묶은 패널
+      JPanel mlabel_info_Panel = new JPanel(new GridLayout(4, 1));
+      mlabel_info_Panel.add(mlabelPanel);
+      mlabel_info_Panel.add(minfoPanel);
       mlabel_info_Panel.add(buybutton_Panel);
-      
-      //종합 정보가 담길 테이블, 위 패널이 담긴 패널
-      JPanel btn_tablePanel = new JPanel(new BorderLayout());
-      //btn_tablePanel.add("North", buybutton_Panel);
-      btn_tablePanel.add("Center", scroll);
-      
-      
-      
+      mlabel_info_Panel.add(mfullPricePanel);
       
       //음식을 고르는 버튼 패널과 음식 정보가 담길 패널이 담긴 종합 패널
       JPanel mealPanel = new JPanel(new GridLayout(2, 1));
       mealPanel.add(meal_drink_buttonPanel);
       mealPanel.add(mlabel_info_Panel);
-      
        
       //총 배치
       setLayout(new GridLayout(1, 2));
       add(mealPanel);
-      add(btn_tablePanel);
-      
-      
-     /* //버튼 클릭시 액션리스너
-      chikenB.addActionListener(this);
-      soyChikenB.addActionListener(this);
-      yangChikenB.addActionListener(this);
-      cokeB.addActionListener(this);
-      ciderB.addActionListener(this);
-      plusB.addActionListener(this); 
-      minusB.addActionListener(this);
-      registerB.addActionListener(this);
-      removeB.addActionListener(this);
-      decideB.addActionListener(this);*/
-   }//end Restaurant_Menu()
+      add(scroll); // 테이블
+   }      
    
-   /*@Override
-   public void actionPerformed(ActionEvent e) {
-      Object obj = e.getSource();
-      if(obj == chikenB) {
-    	  meal_Actions("후라이드치킨", 16500, mealNameTF, mealPriceTF, mealAmountTF);
-      } else if(obj == soyChikenB) {
-    	  meal_Actions("간장 치킨", 17000, mealNameTF, mealPriceTF, mealAmountTF);
-      } else if(obj == yangChikenB) {
-    	  meal_Actions("양념 치킨", 17000, mealNameTF, mealPriceTF, mealAmountTF);
-      } else if(obj == cokeB) {
-    	  meal_Actions("코카콜라", 1500, mealNameTF, mealPriceTF, mealAmountTF);
-      } else if(obj == ciderB) {
-    	  meal_Actions("사이다", 1500, mealNameTF, mealPriceTF, mealAmountTF);
-      } // 메뉴 선택 액션
-      
-      else if(obj == plusB) {
-    	  pAction();
-      } else if(obj == minusB) {
-    	  mAction();
-      } // 수량 증감 액션
-      
-      else if(obj == registerB) {
-    	  regAction();
-      } else if(obj == removeB) {
-    	  delAction();
-      } else if(obj == decideB) {
-    	  decAction();
-      }
-   }//end actionPerformed()
-   
-   private void meal_Actions(String name, int price, 
-			JTextField nameTF, JTextField priceTF, JTextField amountTF) {
-		int amount = 1;
-		nameTF.setText(name);
-		priceTF.setText(Integer.toString(price));
-		amountTF.setText(Integer.toString(amount));
-   } // 메뉴를 누를 경우 기본 수량을 1로 하여 메뉴 선택 // end meal_Actions();
-   
-   private void pAction() {
-		if(mealNameTF.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "메뉴를 먼저 선택해주세요!", "메뉴 선택", JOptionPane.ERROR_MESSAGE);
-			return; // 메뉴 이름이 담긴 텍스트필드를 읽어서 공백일 경우 메뉴가 선택되지 않은 것이므로 메세지 출력 
-		} else {
-			int count = Integer.parseInt(mealAmountTF.getText());
-			count++;
-			mealAmountTF.setText(Integer.toString(count));
-		}
-	} // end pAction()
-	
-   private void mAction() {
-		if(mealNameTF.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "메뉴를 먼저 선택해주세요!", "메뉴 선택", JOptionPane.ERROR_MESSAGE);
-			return; // 메뉴 이름이 담긴 텍스트필드를 읽어서 공백일 경우 메뉴가 선택되지 않은 것이므로 메세지 출력 
-		} else {
-			int count = Integer.parseInt(mealAmountTF.getText());
-			if(count <= 1) {
-				JOptionPane.showMessageDialog(this, "0 마리 이하는 주문 하실 수 없습니다!", "수량 오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			} // 음수로 주문 할 수  설정
-			count--;
-			mealAmountTF.setText(Integer.toString(count));
-		}
-	} // end mAction()
-   
-   private void regAction() {		
-		String[] row = new String[3];
-		row[0] = mealNameTF.getText().trim();
-		row[1] = mealAmountTF.getText().trim();
-		row[2] = mealPriceTF.getText().trim();
-		tableModel.addRow(row); // 음식 정보를 받아서 테이블에 삽입
-   } // end regAction()
-   
-   private void delAction() {
-	   
-   } // end delAction()
-   
-   private void decAction() {
-	   
-   } // end decAction()
-*/}//end Restaurant_Menu
+}//end Restaurant_Menu
