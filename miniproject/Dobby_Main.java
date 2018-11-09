@@ -107,7 +107,7 @@ public class Dobby_Main extends JFrame implements ActionListener {
 
 	private void regAction() {
 		if (dMenu.mealAmountTF.getText().equals("")) {
-			JOptionPane.showMessageDialog(dMenu.table, "음식을 선택해 주세요", "주문 오류", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "메뉴를 선택해 주세요", "주문 오류", JOptionPane.ERROR_MESSAGE);
 			return;
 		} else {
 			String[] row = new String[3];
@@ -127,7 +127,7 @@ public class Dobby_Main extends JFrame implements ActionListener {
 		
 		int row = dMenu.table.getSelectedRow();
 		if (row == -1) {
-			JOptionPane.showMessageDialog(dMenu.table, "주문 제거할 메뉴를 선택해주세요.");
+			JOptionPane.showMessageDialog(this, "주문 제거할 메뉴를 선택해주세요.");
 			return;
 		}
 		dMenu.tableModel.removeRow(row);// 행삭제
@@ -135,7 +135,7 @@ public class Dobby_Main extends JFrame implements ActionListener {
 	} // end delAction()
 
 	private void decAction() {
-		int chk = JOptionPane.showConfirmDialog(dMenu.table, "주문 결정하시겠습니까?", "주문 결정", JOptionPane.YES_NO_OPTION);
+		int chk = JOptionPane.showConfirmDialog(this, "주문 결정하시겠습니까?", "주문 결정", JOptionPane.YES_NO_OPTION);
 
 		if (chk == JOptionPane.NO_OPTION) {
 			return;

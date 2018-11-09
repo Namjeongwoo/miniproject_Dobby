@@ -129,6 +129,7 @@ public class Dobby_Menu extends JPanel{
       mlabel_info_Panel.add(mlabelPanel);
       mlabel_info_Panel.add(minfoPanel);
       
+      
       //음식, 음료 고르기 버튼
       JPanel meal_drink_buttonPanel = new JPanel(new FlowLayout());
       meal_drink_buttonPanel.add(chikenB);
@@ -143,20 +144,28 @@ public class Dobby_Menu extends JPanel{
       buybutton_Panel.add(removeB);
       buybutton_Panel.add(decideB);
       
+      //주문 등록, 주문 제거, 주문 결정 패널 위치 변경
+      mlabel_info_Panel.add(buybutton_Panel);
+      
       //종합 정보가 담길 테이블, 위 패널이 담긴 패널
       JPanel btn_tablePanel = new JPanel(new BorderLayout());
-      btn_tablePanel.add("North", buybutton_Panel);
+      //btn_tablePanel.add("North", buybutton_Panel);
       btn_tablePanel.add("Center", scroll);
+      
+      
+      
       
       //음식을 고르는 버튼 패널과 음식 정보가 담길 패널이 담긴 종합 패널
       JPanel mealPanel = new JPanel(new GridLayout(2, 1));
       mealPanel.add(meal_drink_buttonPanel);
       mealPanel.add(mlabel_info_Panel);
+      
        
       //총 배치
       setLayout(new GridLayout(1, 2));
       add(mealPanel);
       add(btn_tablePanel);
+      
       
      /* //버튼 클릭시 액션리스너
       chikenB.addActionListener(this);
