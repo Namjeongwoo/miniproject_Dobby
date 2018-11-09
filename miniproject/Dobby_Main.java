@@ -97,7 +97,7 @@ public class Dobby_Main extends JFrame implements ActionListener {
 		} else {
 			int count = Integer.parseInt(dMenu.mealAmountTF.getText());
 			if (count <= 1) {
-				JOptionPane.showMessageDialog(this, "0 마리 이하는 주문 하실 수 없습니다!", "수량 오류", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "수량을 확인해 주세요", "수량 오류", JOptionPane.ERROR_MESSAGE);
 				return;
 			} // 음수로 주문 할 수 설정
 			count--;
